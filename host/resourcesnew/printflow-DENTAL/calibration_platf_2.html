@@ -1,0 +1,165 @@
+<html>
+    <head>
+        <title>Calibration</title>
+        <style>	
+		*{
+				cursor: none;
+			}
+
+		::-webkit-scrollbar
+			{
+    		width:0px;
+			}
+			::-webkit-scrollbar-track-piece
+			{
+   			background-color:transparent;
+			}
+		
+		.home{
+			position: absolute; 
+			top: 360px; 
+			left: 25px;
+			height: 90px;
+			width: 80px;
+			user-drag: none; 
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 3;
+		}
+
+		.show1{
+			position: absolute;
+			top: 393px; 
+			left: 704px;
+			opacity:1;
+		}
+
+		.start{
+			position: absolute; 
+			top: 360px; 
+			left: 695px;
+			height: 90px;
+			width: 80px;
+			user-drag: none; 
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 3;
+		}
+
+		.IP { 
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+		
+		.details { 
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+		
+		.visiblelabel { 
+			position: absolute; 
+			top: 65px; 
+			left: 460px;
+			width:350px;
+			color: white;
+			text-align: left;
+			padding-left: 20px;
+			padding-top: 5px;
+			font-size: 20px;
+			z-index: 2;
+		}
+
+		.wifiselect { 
+			position: absolute; 
+			top: 121px; 
+			left: 485px;
+			width: 270px;
+			height: 109px;
+			background-color: transparent;
+			color: white;
+			border: none;
+			line-height: 50px;
+			font-size: 20px;
+			overflow: hidden;
+		}
+
+		.show{
+			position: absolute;
+			top: 350px; 
+			left: 442px;
+			opacity:1;
+		}
+
+		.hide{
+			opacity:0; transition: opacity 3s;
+		}
+
+        </style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="../jquery/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Latest v1 Angular -->
+<script src="../angular/js/angular.min.js"></script>
+
+<script src="js/moment.min.js"></script>
+
+<script src="js/printflow.js"></script>
+<script src="js/printerconfig.js"></script>
+
+<script src="js/js.cookie.js"></script>
+
+<link href="css/printflow.css" rel="stylesheet">
+    </head>
+    <body style="background-color: black;margin: 0;" onload="init();">
+		<script>
+			function init(){
+				startpage();
+				setInterval(updateNetworkInfo(), 10000);
+			}
+
+			function updateNetworkInfo() {
+				$.getJSON('/services/machine/getNetworkHostConfiguration')
+					.done(function (data) {
+						var IPs = "";
+						$.each(data.IPs, function (key, value) {
+							IPs += ("IP: ") + value + (":9091   ");
+						});
+						document.getElementById("IPaddress").innerHTML = IPs;
+					})
+					.fail(function () {
+					});
+			}
+
+		</script>
+		
+        <div class="screen">
+            <div class="main">
+				<img id="overlay" class="overlay hide" src="images/34.gif"/>
+				<img src="images/calibration_platf_2.png" class="uilayer">
+				<img name="wifi" id="wifi" class="wifi" src="images/pixel.png">
+				<img name="doorcheck" id="doorcheck" class="doorcheck" src="images/pixel.png">
+				<img name="printerstatus" id="printerstatus" class="printerstatus" src="images/pixel.png">
+				<div name="printwarn" id="warn" class="warn"><div id="warning" role="alert" class="alert alert-danger collapse" ></div></div>
+				<div name="home" class="home" id="home" onClick="location.href = 'calibration_platf_1.html';"><img src="images/menumainbuttonANIM.png"></div>
+				<div name="start" class="start" id="start" onClick="location.href = 'calibration_platf_3.html';"><img src="images/menumainbuttonANIM.png"></div>
+				<div name="webinfo" id="webinfo" class="webinfo">
+					<div name="IP" id="IP" class="IP"><span id="IPaddress" class="details"></span></div>
+				</div>
+            </div>
+        </div>
+    </body>
+</html>

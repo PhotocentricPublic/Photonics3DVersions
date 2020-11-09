@@ -1,0 +1,3 @@
+#Build Number for ANT. Do not edit!
+build.number=299
+repo.version=@REPO_VER@

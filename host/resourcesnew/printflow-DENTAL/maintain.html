@@ -1,0 +1,641 @@
+<html>
+
+<head>
+	<title>Maintain Page</title>
+	<style>
+		* {
+			cursor: none;
+		}
+
+		.homebutton {
+			position: absolute;
+			top: 100px;
+			left: 85px;
+			height: 110px;
+			width: 110px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.LedOn {
+			position: absolute;
+			top: 100px;
+			left: 431px;
+			height: 110px;
+			width: 110px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.LedOff {
+			position: absolute;
+			top: 270px;
+			left: 430px;
+			height: 110px;
+			width: 110px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.show {
+			position: absolute;
+			top: 155px;
+			left: 445px;
+			opacity: 1;
+		}
+
+		.hide {
+			opacity: 0;
+			transition: opacity 3s;
+		}
+
+		.calibrate {
+			position: absolute;
+			top: 100px;
+			left: 610px;
+			height: 110px;
+			width: 110px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.homez {
+			position: absolute;
+			top: 270px;
+			left: 250px;
+			height: 110px;
+			width: 110px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.testdisplaybtn {
+			position: absolute;
+			top: 270px;
+			left: 610px;
+			height: 110px;
+			width: 110px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layerheight {
+			position: absolute;
+			top: 140px;
+			left: 630px;
+			color: white;
+		}
+
+		.togglebutton {
+			position: absolute;
+			line-height: 11em;
+			top: 100px;
+			left: 250px;
+			width: 110px;
+			text-align: center;
+			height: 110px;
+			color: white;
+			font-size: 18px;
+			font-family: Helvetica;
+		}
+
+		.IP {
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.details {
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.whitecure {
+			position: absolute;
+			top: 270px;
+			left: 72px;
+			height: 110px;
+			width: 110px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+		
+		.whitecurequery{
+			white-space: pre-wrap;       
+			white-space: -moz-pre-wrap;
+			white-space: -o-pre-wrap;    
+			word-wrap: break-word;
+		}
+		
+		.testdisplayquery{
+			white-space: pre-wrap;       
+			white-space: -moz-pre-wrap;
+			white-space: -o-pre-wrap;    
+			word-wrap: break-word;
+		}
+		
+		.whitecurecheck {
+			position: absolute; 
+			top: 100px; 
+			left: 30px;
+			width:200px;
+			height: 210px;
+			z-index: 2;
+		}
+		
+		.testdisplaycheck {
+			position: absolute; 
+			top: 100px; 
+			left: 560px;
+			width:200px;
+			height: 210px;
+			z-index: 2;
+		}
+		
+	</style>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="../jquery/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Latest v1 Angular -->
+	<script src="../angular/js/angular.min.js"></script>
+
+	<script src="js/moment.min.js"></script>
+
+	<script src="js/printflow.js"></script>
+	<script src="js/printerconfig.js"></script>
+
+	<script src="js/js.cookie.js"></script>
+
+	<link href="css/printflow.css" rel="stylesheet">
+</head>
+
+<body style="background-color: black;" onload="init()">
+	<script>
+
+		var PRINTERONTEXT = "ENABLE";
+		var PRINTEROFFTEXT = "DISABLE";
+		var WAITINGTEXT = "PROCESSING";
+		var PRINTERONIMAGE = "images/printer-on.png";
+		var PRINTEROFFIMAGE = "images/printer-off.png";
+		var PRINTERMIDCHANGEIMAGE = "images/printer-midchange.png";
+
+		function init() {
+			startpage();
+			setInterval(updateNetworkInfo(), 10000);
+			getLayerData();
+			setInterval(function () {
+				if (document.getElementById("printerstatus").src.indexOf(PRINTERONIMAGE) > -1) {
+					document.getElementById("togglebutton").innerHTML = PRINTEROFFTEXT;
+				}
+				else if (document.getElementById("printerstatus").src.indexOf(PRINTERMIDCHANGEIMAGE) > -1) {
+					document.getElementById("togglebutton").innerHTML = WAITINGTEXT;
+				}
+				else {
+					document.getElementById("togglebutton").innerHTML = PRINTERONTEXT;
+				}
+			}, 1000);
+			loadcustomizer();
+			loadcustomizer2();
+			no();
+		}
+		
+		function loadcustomizer() {
+			var url = "http://localhost:9091/services/customizers/upsert";
+			var xhr = new XMLHttpRequest();
+			var data = {
+				"name": "display_cure_to_be_hidden.zip.LC Dental",
+				"printerName": "LC Dental",
+				"printableName": "display_cure_to_be_hidden",
+				"printableExtension": "zip",
+				"supportsAffineTransformSettings": true,
+				"affineTransformSettings": {
+					"rotation": 0,
+					"affineTransformScriptCalculator": null,
+					"xscale": 1,
+					"yscale": 1,
+					"xflip": false,
+					"yflip": false,
+					"xshear": 0,
+					"yshear": 0,
+					"ytranslate": 0,
+					"xtranslate": 0
+				},
+				"externalImageAffectingState": "2019",
+				"cacheId": "245fdeea902fdbfc7790034cdd5fd110838c0e21",
+				"nextSlice": 0,
+				"nextStep": "PerformHeader",
+				"imageManipulationCalculator": null,
+				"zscale": 1
+			}
+			xhr.open("POST", url, true);
+			//Send the proper header information along with the request
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.setRequestHeader("Accept", "application/json");
+			xhr.onreadystatechange = function () { // Call a function when the state changes.
+				if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+					// Request finished. Do processing here.
+				}
+			}
+			xhr.send(JSON.stringify(data));;
+		}
+
+		function loadcustomizer2() {
+			var url = "http://localhost:9091/services/customizers/upsert";
+			var xhr = new XMLHttpRequest();
+			var data = {
+				"name": "display_test_to_be_hidden.zip.LC Dental",
+				"printerName": "LC Dental",
+				"printableName": "display_test_to_be_hidden",
+				"printableExtension": "zip",
+				"supportsAffineTransformSettings": true,
+				"affineTransformSettings": {
+					"rotation": 0,
+					"affineTransformScriptCalculator": null,
+					"xscale": 1,
+					"yscale": 1,
+					"xflip": false,
+					"yflip": false,
+					"xshear": 0,
+					"yshear": 0,
+					"ytranslate": 0,
+					"xtranslate": 0
+				},
+				"externalImageAffectingState": "2019",
+				"cacheId": "245fdeea902fdbfc7790034cdd5fd110838c0e21",
+				"nextSlice": 0,
+				"nextStep": "PerformHeader",
+				"imageManipulationCalculator": null,
+				"zscale": 1
+			}
+			xhr.open("POST", url, true);
+			//Send the proper header information along with the request
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.setRequestHeader("Accept", "application/json");
+			xhr.onreadystatechange = function () { // Call a function when the state changes.
+				if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+					// Request finished. Do processing here.
+				}
+			}
+			xhr.send(JSON.stringify(data));;
+		}
+
+		function changez(height) {
+			if ((parseInt(document.getElementById("zdata").innerHTML) + parseInt(height)) < 600) {
+				$.getJSON('../services/printers/moveZ/' + printerName + '/' + height);
+				document.getElementById("zdata").innerHTML = parseInt(document.getElementById("zdata").innerHTML) + parseInt(height);
+			}
+			else {
+				$('#warning').show();
+				document.getElementById("bigbuttonhighlight").style.setProperty("filter", "hue-rotate(180deg)");
+				document.getElementById("bigbuttonhighlight").style.setProperty("-webkit-filter", "hue-rotate(180deg)");
+				setTimeout(function () {
+					$('#warning').hide();
+					document.getElementById("bigbuttonhighlight").style.setProperty("filter", "hue-rotate(0deg)");
+					document.getElementById("bigbuttonhighlight").style.setProperty("-webkit-filter", "hue-rotate(0deg)");
+				}, 5000);
+			}
+		}
+
+		function togglePrinter() {
+			$('#warning').html("Processing. Please wait.");
+			$('#warning').show();
+			no();
+			setTimeout(function () {
+				$('#warning').hide();
+			}, 5000);
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S0');
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 P"fans_off.g"');
+			if (document.getElementById("togglebutton").innerHTML !== WAITINGTEXT) {
+				document.getElementById("togglebutton").innerHTML = WAITINGTEXT;
+				document.getElementById("printerstatus").src = PRINTERMIDCHANGEIMAGE;
+
+				$.getJSON("/services/printers/get/" + encodeURI(printerName)).done(function (data) {
+					if (data.started) { // turn the printer off
+						$.getJSON('/services/printers/stop/' + printerName).done(function () {
+							document.getElementById("togglebutton").innerHTML = PRINTERONTEXT;
+							document.getElementById("printerstatus").src = PRINTEROFFIMAGE;
+							Cookies.set('printerstatus', PRINTEROFFIMAGE);
+						});
+
+					}
+					else { // turn the printer on
+						$.getJSON('/services/printers/start/' + printerName).done(function () {
+							document.getElementById("togglebutton").innerHTML = PRINTEROFFTEXT;
+							document.getElementById("printerstatus").src = PRINTERONIMAGE;
+							Cookies.set('printerstatus', PRINTERONIMAGE);
+						});
+					}
+				});
+			}
+		}
+
+		function getLayerData() {
+			var Ink = {};
+			var layerdata = 0;
+			$.getJSON('/services/printers/get/' + printerName).done(function (data) {
+				var Ink = data.configuration.slicingProfile.InkConfig;
+				var selected = data.configuration.slicingProfile.SelectedInk;
+				Ink.forEach(function (el) {
+					//create a java multidimensional array
+					if (selected === el.Name) {
+						layerdata = parseFloat(el.SliceHeight) * 1000;
+					}
+				});
+			});
+		}
+		
+			var LT1;
+			var LT2;
+			var LT3;
+			var LT4;
+		
+		function lighton() {
+			$("#togglebutton").hide();
+			$("#whitecure").hide();
+			$("#LedOn").hide();
+			$('#warning').html("Backlight ON");
+			$('#warning').show();
+			no();
+			$.getJSON('../services/printers/showBlankScreen/LC Dental');
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P1 S1');
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S1')
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 P"fans_on.g"');
+			LT1 = setTimeout(function () {
+				$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S0');
+				$("#togglebutton").show();
+				$('#warning').html("Backlight Auto OFF");
+				$("#whitecure").show();
+			}, 10000);
+			LT2 = setTimeout(function () {
+				$('#warning').hide();
+				$("#LedOn").show();
+			}, 15000);
+			clearTimeout(LT3);
+			clearTimeout(LT4);
+		}
+
+		function lightoff() {
+			$('#warning').html("Backlight OFF");
+			$('#warning').show();
+			$("#togglebutton").show();
+			$("#whitecure").show();
+			$("#LedOn").show();
+			$("#homeZ").show();
+			$("#testdisplaybtn").show();
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S0');
+			$.getJSON('../services/printers/showBlankScreen/LC Dental');
+			$("#togglebutton").show();
+			$("#whitecure").show();
+			$("#LedOn").show();
+			LT3 = setTimeout(function () {
+				$('#warning').hide();
+			}, 5000);
+			no();
+			clearTimeout(LT1);
+			clearTimeout(LT2);
+			clearTimeout(LT4);
+		}
+
+		function hbutton() {
+			$.getJSON('../services/printers/showBlankScreen/LC Dental');
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S0');
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 P"fans_off.g"')
+				.done(function (data) {
+					location.href = "index.html";
+				});
+		}
+
+		function calibutton() {
+			$.getJSON('../services/printers/showBlankScreen/LC Dental');
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 P"fans_off.g"');
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S0')
+				.done(function (data) {
+					location.href = "calibration_1.html";
+				});
+		}
+
+		function testdisplay() {
+			$('#warning').html("Showing Logo");
+			$('#warning').show();
+			$("#togglebutton").hide();
+			$("#whitecure").hide();
+			$("#LedOn").hide();
+			$("#homeZ").hide();
+			$("#testdisplaybtn").hide();
+			$.getJSON('../services/customizers/projectCustomizerOnPrinter/display_test_to_be_hidden.zip.LC Dental')
+				.done(function (data) {
+					$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 P"fans_on.g"');
+					$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P1 S1');
+					$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S1');
+				});
+			LT4 = setTimeout(function () {
+				$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S0');
+				$.getJSON('../services/printers/showBlankScreen/LC Dental');
+				$("#togglebutton").show();
+				$("#whitecure").show();
+				$("#LedOn").show();
+				$("#homeZ").show();
+				$("#testdisplaybtn").show();
+				$('#warning').hide();
+			}, 20000);
+			clearTimeout(LT1);
+			clearTimeout(LT2);
+			clearTimeout(LT3);
+			no();
+		}
+
+		function zbutton() {
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S0');
+			$('#warning').html("Platform homing. Please wait.");
+			$('#warning').show();
+			$("#togglebutton").hide();
+			$("#homebutton").hide();
+			$("#homeZ").hide();
+			$("#calibrate").hide();
+			$("#whitecure").hide();
+			$("#LedOn").hide();
+			$("#LedOff").hide();
+			$("#testdisplaybtn").hide();
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/G28 Z0')
+				.done(function (data) {
+				$('#warning').hide();
+				$("#togglebutton").show();
+				$("#homebutton").show();
+				$("#homeZ").show();
+				$("#calibrate").show();
+				$("#whitecure").show();
+				$("#LedOn").show();
+				$("#testdisplaybtn").show();
+				$("#LedOff").show();
+				});
+			clearTimeout(LT1);
+			clearTimeout(LT2);
+			clearTimeout(LT3);
+			clearTimeout(LT4);
+			no();
+		}
+
+		function updateNetworkInfo() {
+			$.getJSON('/services/machine/getNetworkHostConfiguration')
+				.done(function (data) {
+					var IPs = "";
+					$.each(data.IPs, function (key, value) {
+						IPs += ("IP: ") + value + (":9091   ");
+					});
+					document.getElementById("IPaddress").innerHTML = IPs;
+				})
+				.fail(function () {
+				});
+		}
+
+		function whitecurescr() {
+			$('#warning').html("Curing layer. . .");
+			$('#warning').show();
+			$("#homeZ").hide();
+			$("#togglebutton").hide();
+			$("#testdisplaybtn").hide();
+			$("#calibrate").hide();
+			$("#homebutton").hide();
+			$("#LedOff").hide();
+			$("#LedOn").hide();
+			$("#whitecure").hide();
+			$.getJSON('../services/customizers/projectCustomizerOnPrinter/display_cure_to_be_hidden.zip.LC Dental')
+				.done(function (data) {
+					$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 P"fans_on.g"');
+					$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P1 S1');
+					$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S1');
+				});
+			setTimeout(function () {
+				$.getJSON('../services/printers/executeGCode/' + printerName + '/M42 P0 S0');
+				$.getJSON('../services/printers/showBlankScreen/LC Dental')
+					.done(function (data) {
+						$("#homeZ").show();
+						$("#togglebutton").show();
+						$("#testdisplaybtn").show();
+						$("#calibrate").show();
+						$("#homebutton").show();
+						$("#LedOff").show();
+						$("#LedOn").show();
+						$('#warning').html("Layer ready, please remove it from the Vat.");
+					});
+			}, 15000);
+			setTimeout(function () {
+				$('#warning').hide();
+				$("#whitecure").show();
+			}, 20000);
+			clearTimeout(LT1);
+			clearTimeout(LT2);
+			clearTimeout(LT3);
+			clearTimeout(LT4);
+			no();
+		}
+
+		function dowhitecheck() {
+			document.getElementById("whitecurequery").innerHTML = "Do you want to cure layer of resin inside the vat?";
+			$('#whitecurewarn').fadeIn();
+			$('#whitecurewarn').css('z-index', 50);
+			$('#whitecurecheck').css('z-index', 50);
+			$('#testdisplaywarn').css('z-index', -50);
+			$('#testdisplaycheck').css('z-index', -50);
+		}
+
+		function dotestcheck() {
+			document.getElementById("testdisplayquery").innerHTML = "Have you removed vat from the screen?";
+			$('#testdisplaywarn').fadeIn();
+			$('#testdisplaywarn').css('z-index', 50);
+			$('#testdisplaycheck').css('z-index', 50);
+			$('#whitecurewarn').css('z-index', -50);
+			$('#whitecurecheck').css('z-index', -50);
+		}
+
+		function no() {
+			$('#whitecurewarn').css('z-index', -50);
+			$('#whitecurecheck').css('z-index', -50);
+			$('#testdisplaywarn').css('z-index', -50);
+			$('#testdisplaycheck').css('z-index', -50);
+		}
+
+	</script>
+	<div class="screen">
+		<div class="main">
+			<img class="uilayer" src="images/maintain.png" usemap="maintain" class="uilayer">
+			<map name="maintain">
+				<img name="homebutton" id="homebutton" class="homebutton" src="images/menumainbuttonANIM.png"
+					onclick="hbutton();" />
+				<img name="LedOn" id="LedOn" class="LedOn" src="images/menumainbuttonANIM.png" onClick="lighton();" />
+				<img name="LedOff" id="LedOff" class="LedOff" src="images/menumainbuttonANIM.png"
+					onclick="lightoff();" />
+				<img name="calibrate" id="calibrate" class="calibrate" src="images/menumainbuttonANIM.png"
+					onClick="calibutton();" />
+				<img name="homeZ" id="homeZ" class="homeZ" src="images/menumainbuttonANIM.png"
+					onclick="zbutton();" />
+
+			</map>
+				<img name="whitecure" id="whitecure" class="whitecure" src="images/menumainbuttonANIM.png" onClick="dowhitecheck();">
+				<div name="whitecurecheck" id="whitecurecheck" class="whitecurecheck">
+					<div id="whitecurewarn" role="alert" class="alert alert-warning collapse">
+						<div id="whitecurequery"></div>
+							<button type="button" class="btn btn-danger btn-block btn-lg" onclick="whitecurescr();">Yes</button>
+							<button type="button" class="btn btn-default btn-block btn-lg" onclick="no();">No</button>
+					</div>
+				</div>
+
+				<img name="testdisplaybtn" id="testdisplaybtn" class="testdisplaybtn" src="images/menumainbuttonANIM.png" onClick="dotestcheck();">
+				<div name="testdisplaycheck" id="testdisplaycheck" class="testdisplaycheck">
+					<div id="testdisplaywarn" role="alert" class="alert alert-warning collapse">
+						<div id="testdisplayquery"></div>
+							<button type="button" class="btn btn-danger btn-block btn-lg" onclick="testdisplay();">Yes</button>
+							<button type="button" class="btn btn-default btn-block btn-lg" onclick="no();">No</button>
+					</div>
+				</div>
+			
+			<img name="wifi" id="wifi" class="wifi" src="images/pixel.png">
+			<img name="doorcheck" id="doorcheck" class="doorcheck" src="images/pixel.png">
+			<img name="printerstatus" id="printerstatus" class="printerstatus" src="images/pixel.png">
+			
+			<div name="warn" id="warn" class="warn">
+				<div id="warning" role="alert" class="alert alert-danger collapse"><strong>Error</strong><br></div>
+			</div>
+			<div name="togglebutton" class="togglebutton" id="togglebutton" onClick="togglePrinter();">ENABLE</div>
+			<div name="webinfo" id="webinfo" class="webinfo">
+				<div name="IP" id="IP" class="IP"><span id="IPaddress" class="details"></span></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

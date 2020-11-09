@@ -1,0 +1,573 @@
+<html>
+    <head>
+        <title>Printables page</title>
+        <style>
+
+		*{
+			cursor: none;
+		}
+
+		.printbutton { 
+			position: absolute; 
+			top: 360px; 
+			left: 300px;
+			width:200px;
+			height:90px;
+			color: white;
+			text-align: center;
+			font-size: 30px;
+			z-index: 2;
+		}
+
+		.printlabel { 
+			position: absolute; 
+			top: 123; 
+			left: 130;
+			width:60px;
+			color: white;
+			text-align: center;
+			font-size: 30px;
+			z-index: 2;
+		}
+
+		.printables {
+			position: absolute; 
+			top: 80px; 
+			left: 140px;
+			width: 645px;
+			height: 320px;
+			background-color: transparent;
+			color: white;
+			font-size: 23px;
+			border: none;
+			padding: 5px;
+			line-height: 50px;
+			border: 0;
+			background-attachment: fixed;
+			font-size: x-large;
+			overflow-y: auto;
+			overflow-x: hidden;
+			-webkit-user-drag: none;
+			-khtml-user-drag: none;
+			-moz-user-drag: none;
+			-o-user-drag: none;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		::-webkit-scrollbar {
+			width: 50px;
+			height: 50px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			background:  #ffffff;  
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			background:#8d8d8d;  
+		}
+
+		::-webkit-scrollbar-corner {
+			border-right: 1px solid;
+			border-bottom: 1px solid;
+		}
+
+		::-webkit-scrollbar-track-piece{
+			background-color:transparent;
+		}
+
+		.deletecontainer {
+			position: absolute;
+			top: 368px;
+			left: 540px;
+			width: 76px;
+			height: 76px;
+			color: white;
+			text-align: center;
+			font-size: 30px;
+			z-index: 2;
+		}
+
+		.refresh_prints{
+			position: absolute; 
+			top: 368px;
+			left: 120px;
+			width:76px;
+			height:76px;
+			user-drag: none; 
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+		.deleteallcontainer { 
+			position: absolute; 
+			top: 368px; 
+			left: 630px;
+			width: 76px;
+			height: 76px;
+			color: white;
+			text-align: center;
+			font-size: 30px;
+			z-index: 2;
+		}
+		
+		.delete {
+			position: absolute;
+			z-index: 5;
+			user-drag: none; 
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+		.deleteall {
+			position: absolute;
+			z-index: 5;
+			user-drag: none; 
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+		.homebutton{
+			position: absolute; 
+			top: 365px; 
+			left: 30px;
+			height: 80px;
+			width: 70px;
+			user-drag: none; 
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.deletecheck {
+			position: absolute; 
+			top: 110px; 
+			left: 500px;
+			width:200px;
+			height: 210px;
+			z-index: 2;
+		}
+
+		.deleteallcheck {
+			position: absolute; 
+			top: 110px; 
+			left: 500px;
+			width: 200px;
+			height: 210px;
+			z-index: 2;
+		}
+		.show{
+			position: absolute;
+			top: 350px; 
+			left: 442px;
+			opacity:1;
+		}
+
+		.hide{
+			opacity:0; transition: opacity 3s;
+		}
+
+		.deletequery{
+			white-space: pre-wrap;       
+			white-space: -moz-pre-wrap;
+			white-space: -o-pre-wrap;    
+			word-wrap: break-word;
+		}
+		
+		.deleteallquery{
+			white-space: pre-wrap;       
+			white-space: -moz-pre-wrap;
+			white-space: -o-pre-wrap;    
+			word-wrap: break-word;
+		}
+
+		.IP { 
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+		
+		.details { 
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+		
+		.visiblelabel { 
+			position: absolute; 
+			top: 65px; 
+			left: 460px;
+			width:350px;
+			color: white;
+			text-align: left;
+			padding-left: 20px;
+			padding-top: 5px;
+			font-size: 20px;
+			z-index: 2;
+		}
+
+		.wifiselect { 
+			position: absolute; 
+			top: 121px; 
+			left: 485px;
+			width: 270px;
+			height: 109px;
+			background-color: transparent;
+			color: white;
+			border: none;
+			line-height: 50px;
+			font-size: 20px;
+			overflow: hidden;
+		}
+				
+		.sortprintables {
+			position: absolute; 
+			top: 48px; 
+			left: 735px;
+			background-color: transparent;
+			color: white;
+			font-size: large;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;			
+		}
+
+		.refreshlist {
+			position: absolute; 
+			top: 48px; 
+			left: 735px;
+			background-color: transparent;
+			color: white;
+			font-size: large;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;			
+		}
+
+		.previewmodelimage{
+			position: absolute; 
+			top: 80px; 
+			left: 16px;
+			height: 120px;
+			width: 120px;
+			margin: 3px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			border: 2px;
+			border-color: transparent;
+			color: black;
+			background-color: transparent;
+		}
+	
+		</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="../jquery/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Latest v1 Angular -->
+<script src="../angular/js/angular.min.js"></script>
+
+<script src="js/moment.min.js"></script>
+
+<script src="js/printflow.js"></script>
+<script src="js/printerconfig.js"></script>
+
+<script src="js/js.cookie.js"></script>
+
+<link href="css/printflow.css" rel="stylesheet">
+    </head>
+    <body style="background-color: black;">
+		<script>
+			test="";
+
+			window.onload = init;
+
+			function refreshFunction() {
+    			location.reload(true);
+			}
+
+			function init() {
+					startpage();
+					fillList();
+					setInterval(updateNetworkInfo(), 10000);
+			}
+
+			function startPrint(){
+				if (document.getElementById("printables").selectedIndex <0){
+					//do nothing
+					$('#warning').html("Please select file to print");
+					$('#warning').show();
+					setTimeout(function() {
+						$('#warning').hide();
+					}, 5000);
+				}
+				else{
+					$('#warning').html("Starting print");
+					$('#warning').show();
+					$.getJSON("../services/printers/startJob/" + encodeURIComponent($("#printables").val()) + "/" + printerName);
+				}
+			}
+
+			function dodeletecheck() {
+					if ($("#printables").val() !== null) {
+						var maxlength = 20; //sorry, magic number. best fit for the font size and screen element size
+						var smallfname = $("#printables").val();
+						var extension = smallfname.split(".")[smallfname.split(".").length - 1];
+						if ($("#printables").val().length > maxlength) {
+							smallfname = smallfname.substring(0, smallfname.length - 1 - extension.length).match(/[A-Z,a-z]+\w{0,12}/g).join('&#8203;') + "&#8203;." + extension + "";
+						}
+						document.getElementById("deletequery").innerHTML = "Are you sure you want to delete " + smallfname + "?<br><br><br>";
+						$('#deletewarn').fadeIn();
+						$('#deletewarn').css('z-index', 50);
+						$('#deletecheck').css('z-index', 50);
+						$('#deletecontainer').fadeOut();
+						$('#deleteallcontainer').fadeOut();
+					}
+				}
+
+			function deleteONEfile() {
+					$.getJSON("../services/printables/delete/" + encodeURIComponent($("#printables").val()))
+						.done(function () {
+							document.getElementById("deletequery").innerHTML = "";
+							$('#deletewarn').css('z-index', -50);
+							$('#deletewarn').hide();
+							$('#deletecontainer').hide();
+							$('#deleteallcontainer').fadeIn();
+							var options = $("#printables option"); // Collect options         
+							options.detach();
+							if ($("#sortprintables").is(':hidden')) {
+								fillListbyName();
+							}
+							else if ($("#refreshlist").is(':hidden')) {
+								fillList();
+							}
+							else {
+							}
+						})
+						.fail(function () {
+							$('#warning').html("<strong>Error</strong><br>Could not delete item " + $("#printables").val());
+							$('#warning').show();
+							setTimeout(function () {
+								$('#warning').hide();
+							}, 5000);
+						});
+				}
+
+				function deletefile(fileName) {
+					$.getJSON("../services/printables/delete/" + encodeURIComponent(fileName))
+						.done(function () {
+							//DO nothing - yet
+						})
+						.fail(function () {
+							$('#warning').html("<strong>Error</strong><br>Could not delete item " + $("#printables").val());
+							$('#warning').show();
+							setTimeout(function () {
+								$('#warning').hide();
+							}, 5000);
+						});
+				}
+
+			function displayPreviewImage(){
+				var printfileName=$("#printables").val();
+				var ext = printfileName.split('.').pop();
+				ext = ext ? ext.toLowerCase() :"noimage";
+				document.getElementById("previewmodelimage").src = "images/pixel.png";
+				var img=document.getElementById('previewmodelimage');	
+				img.src=undefined;
+				if (!ext || (ext!=="zip" && ext!=="cws" && ext=== "noimage") ) 
+				{
+					img.src="images/pixel.png";
+					return;
+				}
+			
+				img.src="../services/printables/downloadprintableimagefile/"+$("#printables").val();	
+			}
+
+			function showcontrol(){
+				$('#deletecontainer').fadeIn();
+				$('#deletewarn').fadeOut();
+				displayPreviewImage();
+			}
+
+			function dodeleteallcheck() {
+				     var xx=$("#printables");
+					 var length=xx[0].length;
+
+					 if (length>0){
+						document.getElementById("deleteallquery").innerHTML = "Are you sure you want to delete all the print files?<br><br><br>";
+						$('#deleteallwarn').fadeIn();
+						$('#deletecheck').css('z-index', -50);
+						$('#deleteallwarn').css('z-index', 50);
+						$('#deleteallcontainer').fadeOut();
+						$('#deletecontainer').fadeOut();
+					 }
+				}
+
+			function deleteAllfiles() {
+				var printfilelist=$("#printables");
+				var opts=printfilelist[0];
+				for (var i=0; i<opts.length;i++){
+					var fname = opts[i].innerText;
+					deletefile(fname);
+				}
+				//$('#deleteallcontainer').hide();
+				$('#deleteallcheck').hide();
+				$('#deleteallcontainer').show();
+				var options = $("#printables option"); // Collect options         
+				options.detach();
+				if ($("#sortprintables").is(':hidden')) {
+					setTimeout(function () {
+						fillListbyName();
+					}, 1000);
+				}
+				else if ($("#refreshlist").is(':hidden')) {
+					setTimeout(function () {
+						fillList();
+					}, 1000);
+				}
+				else {
+				}
+			}
+
+			function updateNetworkInfo() {
+					$.getJSON('/services/machine/getNetworkHostConfiguration')
+						.done(function (data) {
+							var IPs = "";
+							$.each(data.IPs, function (key, value) {
+								IPs += ("IP: ") + value + (":9091   ");
+							});
+							document.getElementById("IPaddress").innerHTML = IPs;
+						})
+						.fail(function () {
+						});
+				}
+
+			function fillList() {
+					empty();
+					select = document.getElementById("printables");
+					$.getJSON('../services/printables/list')	//requests list of printable files from server
+						.done(function (data) {
+							$.each(data, function (key, val) {
+								option = document.createElement('option');
+								option.text = option.value = val.name + "." + val.extension;
+								option.date = moment(val.modifiedDate).format('YYYYMMDDHHmm');
+								if (("display_test_to_be_hidden" !== val.name) && ("display_cure_to_be_hidden" !== val.name)) {
+									select.add(option);
+								}
+							});
+							var options = $("#printables option"); 
+							options.detach().sort(function (a, b) {  
+							var dateA = a.date;
+							var dateB = b.date;	             			
+							return dateB - dateA;
+							});
+							options.appendTo("#printables");
+							$('#sortprintables').show();
+							$('#refreshlist').hide();
+							var count = options.length;
+						})
+						.fail(function () {
+						});
+				}
+
+				function empty() {
+					document.getElementById("printables").innerHTML = clear;
+					var clear = [];
+				}
+
+				function fillListbyName() {
+					empty();
+						select = document.getElementById("printables");
+						$.getJSON('../services/printables/list')
+							.done(function (data) {
+								$.each(data, function (key, val) {
+									option = document.createElement('option');
+									option.text = option.value = val.name + "." + val.extension;
+									if (("display_test_to_be_hidden" !== val.name) && ("display_cure_to_be_hidden" !== val.name)) {
+										select.add(option);
+									}
+								});
+								var options = $("#printables option");                    // Collect options         
+								options.detach().sort(function (a, b) {               // Detach from select, then Sort
+									var at = $(a).text().toLowerCase();
+									var bt = $(b).text().toLowerCase();
+									return (at > bt) ? 1 : ((at < bt) ? -1 : 0);            // Tell the sort function how to order
+								});
+								options.appendTo("#printables");
+								$('#sortprintables').hide();
+								$('#refreshlist').show();
+							})
+							.fail(function () {
+							});
+					}
+
+		</script>
+        <div class="screen">
+            <div class="main">
+				<div name="webinfo" id="webinfo" class="webinfo">
+					<div name="IP" id="IP" class="IP"><span id="IPaddress" class="details"></span></div>
+				</div>
+				<img id="overlay" class="overlay hide" src="images/pixel.png">
+				<img src="images/printables.png" usemap="printables" class="uilayer">
+				<img name="homebutton" id="homebutton" class="homebutton" src="images/menumainbuttonANIM.png" onClick="location.href='index.html';">
+				<img name="wifi" id="wifi" class="wifi" src="images/pixel.png">
+				<img name="sortprintables" id="sortprintables" class="sortprintables" src="images/sort.png" onClick="fillListbyName();">
+				<img name="refreshlist" id="refreshlist" class="refreshlist collapse" src="images/refreshlist.png" onClick="fillList();">
+				<img name="doorcheck" id="doorcheck" class="doorcheck" src="images/pixel.png">
+				<img name="printerstatus" id="printerstatus" class="printerstatus" src="images/pixel.png">
+				<img name="printbutton" id="printbutton" class="printbutton" src="images/pixel.png" onClick="startPrint();">
+				<img name="refresh_prints" id="refresh_prints" class="refresh_prints" src="images/menumainbuttonANIM.png" onClick="refreshFunction();"> 		
+				<select size="9" class="printables" id="printables" onClick="showcontrol();" onChange="showcontrol();"></select>
+
+				<div class="deleteallcontainer" id="deleteallcontainer"><img name="deleteall" id="deleteall" class="deleteall" src="images/delete_all.png" onclick="dodeleteallcheck();"></div>
+				<div name="printallwarn" id="allwarn" class="allwarn"><div id="allwarning" role="alert" class="alert alert-danger collapse" ></div></div>
+				<div name="deleteallcheck" id="deleteallcheck" class="deleteallcheck">
+					<div id="deleteallwarn" role="alert" class="alert alert-warning collapse" >
+						<div id="deleteallquery"></div>
+							<button type="button" class="btn btn-danger btn-block btn-lg" onclick="deleteAllfiles();">Yes</button>
+							<button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#deleteallwarn').hide(), $('#deleteallcontainer').fadeIn();">No</button>
+					</div>
+				</div>
+
+				<div class="deletecontainer collapse" id="deletecontainer"><img name="delete" id="delete" class="delete" src="images/delete.png" onclick="dodeletecheck();"></div>
+				<div name="printwarn" id="warn" class="warn"><div id="warning" role="alert" class="alert alert-danger collapse" ></div></div>
+				<div name="deletecheck" id="deletecheck" class="deletecheck">
+					<div id="deletewarn" role="alert" class="alert alert-warning collapse" >
+						<div id="deletequery"></div>
+							<button type="button" class="btn btn-danger btn-block btn-lg" onclick="deleteONEfile();">Yes</button>
+							<button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#deletewarn').hide(), $('#deletecontainer').fadeIn(), $('#deleteallcontainer').fadeIn();">No</button>
+					</div>
+				</div>
+
+				<div name="webinfo" id="webinfo" class="webinfo">
+					<div name="IP" id="IP" class="IP"><span id="IPaddress" class="details"></span></div>
+				</div>
+				<div>
+				<img class="previewmodelimage" src="images/pixel.png" id="previewmodelimage">
+				</div>
+            </div>
+        </div>
+	</body>
+	</html>

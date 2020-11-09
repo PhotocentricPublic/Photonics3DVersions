@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Main Page</title>
+	<style>
+		* {
+			cursor: none;
+		}
+
+		::-webkit-scrollbar {
+			width: 0px;
+		}
+
+		::-webkit-scrollbar-track-piece {
+			background-color: transparent;
+		}
+
+		.layover_1 {
+			position: absolute;
+			top: 67px;
+			left: 336px;
+			opacity: 50%;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layover_2 {
+			position: absolute;
+			top: 259px;
+			left: 155px;
+			opacity: 50%;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layover_3 {
+			position: absolute;
+			top: 293px;
+			left: 367px;
+			opacity: 50%;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layover_4 {
+			position: absolute;
+			top: 259px;
+			left: 570px;
+			opacity: 50%;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.print {
+			position: absolute;
+			top: 50px;
+			left: 270px;
+			height: 200px;
+			width: 250px;
+			z-index: 5;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.maintain {
+			position: absolute;
+			top: 230px;
+			left: 115px;
+			height: 150px;
+			width: 150px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.settings {
+			position: absolute;
+			top: 230px;
+			left: 525px;
+			height: 150px;
+			width: 150px;
+			z-index: 5;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.network {
+			position: absolute;
+			top: 260px;
+			left: 320px;
+			height: 150px;
+			width: 150px;
+			z-index: 5;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.IP {
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.details {
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.visiblelabel {
+			position: absolute;
+			top: 65px;
+			left: 460px;
+			width: 350px;
+			color: white;
+			text-align: left;
+			padding-left: 20px;
+			padding-top: 5px;
+			font-size: 20px;
+			z-index: 2;
+		}
+
+		.wifiselect {
+			position: absolute;
+			top: 121px;
+			left: 485px;
+			width: 270px;
+			height: 109px;
+			background-color: transparent;
+			color: white;
+			border: none;
+			line-height: 50px;
+			font-size: 20px;
+			overflow: hidden;
+		}
+	</style>
+	<!-- <style type="text/css">
+			* {
+				cursor: none;
+			}
+		</style> -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="../jquery/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Latest v1 Angular -->
+	<script src="../angular/js/angular.min.js"></script>
+
+	<script src="js/moment.min.js"></script>
+
+	<script src="js/printflow.js"></script>
+	<script src="js/printerconfig.js"></script>
+
+	<script src="js/js.cookie.js"></script>
+
+	<link href="css/printflow.css" rel="stylesheet">
+
+</head>
+
+<body style="background-color: black;" onload="init();">
+	<script>
+
+		function init() {
+			startpage();
+			pagelight();
+			setInterval(updateNetworkInfo(), 5000);
+		}
+
+		function pagelight() {
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M150 R255 U0 B0');
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M106 P0 S0');
+		}
+
+		function main_1() {
+			setTimeout(function () {
+				location.href = "printables.html";
+			}, 150);
+			$('#layover_1').show(0).delay(80).hide(0);
+		}
+
+		function main_2() {
+			setTimeout(function () {
+				location.href = "maintain.html"
+			}, 150);
+			$('#layover_2').show(0).delay(80).hide(0);
+		}
+
+		function main_3() {
+			setTimeout(function () {
+				location.href = "wifisettings.html"
+			}, 150);
+			$('#layover_3').show(0).delay(80).hide(0);
+		}
+
+		function main_4() {
+			setTimeout(function () {
+				location.href = "settings.html";
+			}, 150);
+			$('#layover_4').show(0).delay(80).hide(0);
+		}	
+	</script>
+
+	<div class="screen">
+		<div class="main">
+			<img src="images/mainmenu.png" usemap="mainmenu" class="uilayer"></img>
+			<img name="wifi" id="wifi" class="wifi" src="images/pixel.png">
+			<img name="printerstatus" id="printerstatus" class="printerstatus" src="images/pixel.png">
+			<img name="interlockcheck" id="interlockcheck" class="interlockcheck" src="images/pixel.png">
+			<img name="doorcheck" id="doorcheck" class="doorcheck" src="images/pixel.png">
+			<img name="print" id="print" class="print" src="images/menumainbuttonANIM.png" onClick="main_1();" />
+			<img name="maintain" id="maintain" class="maintain" src="images/menumainbuttonANIM.png"
+				onClick="main_2();" />
+			<img name="network" id="network" class="network" src="images/menumainbuttonANIM.png" onClick="main_3();" />
+			<img name="settings" id="settings" class="settings" src="images/menumainbuttonANIM.png"
+				onClick="main_4();" />
+			<img name="layover_1" id="layover_1" class="layover_1 collapse" src="images/layovers/main_1.png" />
+			<img name="layover_2" id="layover_2" class="layover_2 collapse" src="images/layovers/main_2.png" />
+			<img name="layover_3" id="layover_3" class="layover_3 collapse" src="images/layovers/main_3.png" />
+			<img name="layover_4" id="layover_4" class="layover_4 collapse" src="images/layovers/main_4.png" />
+			<div onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
+				<div name="webinfo" id="webinfo" class="webinfo">
+					<div name="IP" id="IP" class="IP"><span id="IPaddress" class="details"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

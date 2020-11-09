@@ -1,0 +1,260 @@
+html, body {
+	overflow:hidden;
+}
+
+
+
+.screen{
+	width: 800px;
+	height: 480px;
+	background-image: url("../images/emptybackground.png");
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	overflow: hidden;
+
+}
+.main{
+    height: 480px;
+    max-height:480px;
+    max-width: inherit;
+    padding-bottom: 40px;
+    padding-top: 40px;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	overflow: hidden;
+
+}
+.uilayer{
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	overflow: hidden;
+
+}
+
+
+.smallbuttonhighlight{
+	position: absolute; 
+	top: 170px; 
+	left: 27px;
+	animation-iteration-count: infinite;
+	animation-name: rotate;
+	animation-duration: 2s;
+	animation-timing-function: linear;
+	-webkit-animation-name: rotate;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.bigbuttonhighlight{
+	position: absolute; 
+	top: 63px; 
+	left: 86px;
+	animation-iteration-count: infinite;
+	animation-name: rotate;
+	animation-duration: 2s;
+	animation-timing-function: linear;
+	-webkit-animation-name: rotate;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-iteration-count: infinite;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+		
+@keyframes rotate{
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+@keyframes fade{
+	from {
+		opacity: 0.5;
+	}
+	to{
+		opacity: 1;
+	}
+}
+.time { 
+	position: absolute; 
+	top: 350px; 
+	left: 75px; 
+	color: white;
+	text-align: center;
+	font-size: large;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.wifi{
+	position: absolute; 
+	top: 7px; 
+	left: 50px;
+	width: 31px;
+	height: 27px;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.printerstatus{
+	position: absolute; 
+	top: 7px; 
+	left: 7px;
+	width: 25px;
+	height: 30px;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.doorcheck{
+	position: absolute; 
+	top: 7px; 
+	left: 680px;
+	width: 120px;
+	height: 30px;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.dialogue_doorcheck{
+	position: absolute; 
+	top: 7px; 
+	left: 321px;
+	width: 469px;
+	height: 103px;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	z-index: 50;
+}
+
+.interlockcheck{
+	position: absolute; 
+	top: 7px; 
+	left: 725px;
+	width: 30px;
+	height: 30px;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.updatestatus{
+	position: absolute; 
+	top: 20px; 
+	left: 668px;
+	width: 30px;
+	height: 30px;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+.info { 
+	position: absolute; 
+	top: 70px; 
+	left: 40px; 
+	color: white;
+	font-size: 0;
+	width: 310px;
+	white-space: pre-wrap;      /* CSS3 */   
+	white-space: -moz-pre-wrap; /* Firefox */   
+	white-space: -o-pre-wrap;   /* Opera 7 */    
+	word-wrap: break-word;      /* IE */
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	text-transform: uppercase;
+}
+
+.webinfo { 
+	font-weight: bold;
+	position: absolute; 
+	top: 10px; 
+	left: 90px; 
+	color: white;
+	font-size: 0;
+	width: 350px;
+	white-space: pre-wrap;      /* CSS3 */   
+	white-space: -moz-pre-wrap; /* Firefox */   
+	white-space: -o-pre-wrap;   /* Opera 7 */    
+	word-wrap: break-word;      /* IE */
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	text-transform: uppercase;
+}
+
+.warn { 
+	position: absolute; 
+	top: 30px; 
+	left: 350px;
+	width:210px;
+	color: red;
+	user-drag: none; 
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	z-index: 50;
+}
