@@ -272,6 +272,7 @@ public class PrintableService {
             @ApiResponse(code = 500, message = SwaggerMetadata.UNEXPECTED_ERROR)})
 	@GET
 	@Path("list")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Printable> getPrintables() {
     	File dir = HostProperties.Instance().getUploadDir();
 		File[] acceptedFiles = dir.listFiles();
