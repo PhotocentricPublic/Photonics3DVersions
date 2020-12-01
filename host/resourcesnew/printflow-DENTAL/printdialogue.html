@@ -383,7 +383,7 @@
 					$.getJSON('/services/printJobs/get/' + Cookies.get('laststartedjob'))
 						.done(function (data) {
 							if (data.status == "Completed") {
-								window.location.href = ("error.html?type=success&errorname=Print Complete!&errordetails=The print of <b>" + data.jobName + "</b> has completed, taking " + moment.utc(data.elapsedTime).format("HH:mm:ss") + " altogether.&errordetails2=Please remove the print from the platform and store any uncured resin for your next print.");
+								window.location.href = ("error.html?type=success&errorname=Print Complete!&errordetails=The print <b>" + data.jobName + "</b> has completed, taking " + moment.utc(data.elapsedTime).format("HH:mm:ss") + " altogether.&errordetails2=Please remove the print from the platform and store any uncured resin for your next print.");
 							}
 						});
 				}
@@ -413,7 +413,7 @@
 								$.getJSON('../services/printers/moveZ/' + printerName + '/' + zMoveDist);
 							}
 						}
-						window.location.href = ("error.html?type=success&errorname=Print Complete!&errordetails=The print of <b>" + runningjobName + "</b> [Job ID: " + jobId + "] has completed, taking " + moment.utc(endtime - starttime).format("HH:mm:ss") + " altogether.&errordetails2=Please remove the print from the platform and store any uncured resin for your next print.");
+						window.location.href = ("error.html?type=success&errorname=Print Complete!&errordetails=The print <b>" + runningjobName + "</b> [Job ID: " + jobId + "] has completed, taking " + moment.utc(endtime - starttime).format("HH:mm:ss") + " altogether.&errordetails2=Please remove the print from the platform and store any uncured resin for your next print.");
 					}
 				}
 

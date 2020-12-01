@@ -1,0 +1,912 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Print Dialogue</title>
+	<style>
+		* {
+			cursor: none;
+		}
+
+		.layover_1 {
+			position: absolute;
+			top: 332px;
+			left: 351px;
+			opacity: 50%;
+			z-index: 101;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layover_2 {
+			position: absolute;
+			top: 333px;
+			left: 643px;
+			opacity: 50%;
+			z-index: 101;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layover_3 {
+			position: absolute;
+			top: 332px;
+			left: 643px;
+			opacity: 50%;
+			z-index: 101;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layover_4 {
+			position: absolute;
+			top: 330px;
+			left: 455px;
+			opacity: 50%;
+			z-index: 101;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layover_5 {
+			position: absolute;
+			top: 330px;
+			left: 535px;
+			opacity: 50%;
+			z-index: 101;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.pause {
+			position: absolute;
+			top: 335px;
+			left: 633px;
+			width: 70px;
+			color: white;
+			z-index: 2;
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-webkit-user-drag: none;
+			user-drag: none;
+		}
+
+		.cancellabel {
+			position: absolute;
+			top: 335px;
+			left: 342px;
+			width: 70px;
+			z-index: 2;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.show {
+			position: absolute;
+			top: 350px;
+			left: 442px;
+			opacity: 1;
+		}
+
+		.hide {
+			opacity: 0;
+			transition: opacity 3s;
+		}
+
+		.printlayer {
+			position: absolute;
+			top: 100px;
+			left: 350px;
+			width: 350px;
+			height: 206px;
+			border: none;
+			z-index: 0;
+			border-color: transparent;
+			background-color: black;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		/* .layerslice {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-color: black;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		} */
+
+		.progressbar {
+			position: absolute;
+			top: 298px;
+			left: 350px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		progress[value] {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 350px;
+			height: 10px;
+		}
+
+		progress[value]::-webkit-progress-bar {
+			border-radius: 0px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+			background: #545454;
+		}
+
+		progress[value]::-webkit-progress-value {
+			background-image:
+				-webkit-linear-gradient(-45deg,
+					transparent 33%, rgba(0, 0, 0, .1) 33%,
+					rgba(0, 0, 0, .1) 66%, transparent 66%),
+				-webkit-linear-gradient(top,
+					rgba(255, 255, 255, .25),
+					rgba(0, 0, 0, .25)),
+				-webkit-linear-gradient(left, #008c21, #008c21);
+			border-radius: 20px;
+			background-size: 35px 20px, 100% 100%, 100% 100%;
+		}
+
+		.filename {
+			font-weight: bolder;
+			font-size: 20px;
+			padding-bottom: 5px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.completion {
+			font-size: 20px;
+			padding-bottom: 4px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.timeelapsed {
+			font-size: 20px;
+			padding-bottom: 4px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.timeremaining {
+			font-size: 20px;
+			padding-bottom: 4px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.totaltime {
+			font-size: 20px;
+			padding-bottom: 4px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.windowframe {
+			position: absolute;
+			top: 132px;
+			left: 252px;
+			z-index: 1;
+			opacity: 0;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.jobid {
+			position: absolute;
+			top: 465px;
+			left: 495px;
+			width: 300px;
+			color: white;
+			font-size: 10px;
+			text-align: right;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.pauseglyph {
+			position: absolute;
+			top: 110px;
+			left: 330px;
+			width: 100px;
+			height: 100px;
+			text-align: center;
+			color: red;
+			font-size: 70px;
+			z-index: 100;
+			animation-iteration-count: infinite;
+			animation-name: pauseglyph;
+			animation-direction: alternate;
+			animation-duration: 2s;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.IP {
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.details {
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.visiblelabel {
+			position: absolute;
+			top: 65px;
+			left: 460px;
+			width: 350px;
+			color: white;
+			text-align: left;
+			padding-left: 20px;
+			padding-top: 5px;
+			font-size: 20px;
+			z-index: 2;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.cancel_question {
+			position: absolute;
+			top: 300px;
+			left: 380px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.pause_question {
+			position: absolute;
+			top: 300px;
+			left: 380px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.resume_question {
+			position: absolute;
+			top: 300px;
+			left: 380px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.cancel_approve {
+			position: absolute;
+			top: 330px;
+			left: 445px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.resume_approve {
+			position: absolute;
+			top: 330px;
+			left: 445px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.pause_approve {
+			position: absolute;
+			top: 330px;
+			left: 445px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+
+		.cancel_decline {
+			position: absolute;
+			top: 330px;
+			left: 525px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.resume_decline {
+			position: absolute;
+			top: 330px;
+			left: 525px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.pause_decline {
+			position: absolute;
+			top: 330px;
+			left: 525px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.cancelling {
+			position: absolute;
+			top: 300px;
+			left: 380px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.resuming {
+			position: absolute;
+			top: 300px;
+			left: 380px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.pausing {
+			position: absolute;
+			top: 300px;
+			left: 380px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 2;
+		}
+
+		.wifiselect {
+			position: absolute;
+			top: 121px;
+			left: 485px;
+			width: 270px;
+			height: 109px;
+			background-color: transparent;
+			color: white;
+			border: none;
+			line-height: 50px;
+			font-size: 20px;
+			overflow: hidden;
+		}
+
+		@keyframes pauseglyph {
+			0% {
+				color: rgba(128, 128, 0, 128);
+			}
+
+			25% {
+				color: rgba(128, 96, 0, 112);
+			}
+
+			50% {
+				color: rgba(128, 64, 0, 96);
+			}
+
+			75% {
+				color: rgba(128, 32, 0, 80);
+			}
+
+			100% {
+				color: rgba(128, 0, 0, 64);
+			}
+		}
+
+		@keyframes playfade {
+			0% {
+				color: rgba(128, 128, 0, 128);
+			}
+
+			25% {
+				color: rgba(128, 96, 0, 96);
+			}
+
+			50% {
+				color: rgba(128, 64, 0, 64);
+			}
+
+			75% {
+				color: rgba(128, 32, 0, 32);
+			}
+
+			100% {
+				color: rgba(128, 0, 0, 0);
+			}
+		}
+	</style>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="../jquery/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Latest v1 Angular -->
+	<script src="../angular/js/angular.min.js"></script>
+
+	<script src="js/moment.min.js"></script>
+	<script src="js/image.min.js"></script>
+	<script src="js/printflow.js"></script>
+	<script src="js/printerconfig.js"></script>
+
+	<script src="js/js.cookie.js"></script>
+
+	<link href="css/printflow.css" rel="stylesheet">
+</head>
+
+<body style="background-color: black;" onload="init();">
+	<script>
+		endtime = 0;
+		temp = "";
+		initialsliceurl = "";
+		sliceHeight = 0; // set this as 0 to be safe!
+		maxHeight = 0; // set this as 0 too to be safe!
+
+		function init() {
+			startpage();
+			$('#pause').hide();
+			$('#cancellabel').hide();
+			setTimeout(function () {
+				$('#pause').show();
+				$('#cancellabel').show();
+			}, 8000);
+			setInterval(updateNetworkInfo(), 10000);
+			$.getJSON('../services/printJobs/getByPrinterName/' + printerName)
+				.done(function (data) {
+					temp = data;
+					starttime = parseInt(data.startTime);
+					currentslice = parseInt(data.currentSlice);
+					totalslices = parseInt(data.totalSlices);
+					jobId = (data.id);
+					runningjobName = (data.jobName);
+					totalslices = parseInt(data.totalSlices);
+					currentslice = parseInt(data.currentSlice);
+					sliceHeight = parseFloat(data.printer.configuration.slicingProfile.InkConfig[data.printer.configuration.slicingProfile.selectedInkConfigIndex].SliceHeight);
+					maxHeight = parseFloat(data.printer.configuration.machineConfig.PlatformZSize);
+					firstlayertime = parseInt(data.printer.configuration.slicingProfile.InkConfig[data.printer.configuration.slicingProfile.selectedInkConfigIndex].FirstLayerTime);
+					bottomlayers = parseInt(data.printer.configuration.slicingProfile.InkConfig[data.printer.configuration.slicingProfile.selectedInkConfigIndex].NumberofBottomLayers);
+					layertime = parseInt(data.printer.configuration.slicingProfile.InkConfig[data.printer.configuration.slicingProfile.selectedInkConfigIndex].LayerTime);
+					//make the end time the biggest value of the two ways we try to calculate the data when we start the page. If it falls, that's ok, but it's preferable for the print time to fall.
+					if ((starttime + data.elapsedTime + (parseInt(data.averageSliceTime) * (parseInt(data.totalSlices) - parseInt(data.currentSlice)))) > starttime + (firstlayertime * bottomlayers) + (layertime * (totalslices - bottomlayers))) {
+						endtime = starttime + data.elapsedTime + (parseInt(data.averageSliceTime) * (parseInt(data.totalSlices) - parseInt(data.currentSlice)));
+					}
+					else {
+						endtime = starttime + (firstlayertime * bottomlayers) + (layertime * (totalslices - bottomlayers));
+					}
+
+					document.getElementById('canvas').src = currentSliceImage64;
+					document.getElementById("jobid").innerHTML = jobId;
+					document.getElementById("filename").innerHTML = runningjobName;
+					Cookies.set('laststartedjob', jobId);
+				})
+				.fail(function () {
+					jobId = "FAKEe43a-f84f-446c-ade8-70182988d92c";
+					jobname = "Dummy Test";
+					totalslices = 720;
+					averageslicetime = 1000;
+					endtime = starttime + (totalslices * averageslicetime);
+					document.getElementById('canvas').src = currentSliceImage64;
+					document.getElementById("jobid").innerHTML = jobId;
+					document.getElementById("filename").innerHTML = runningjobName;
+					document.getElementById("vartimeelapsed").innerHTML = moment.utc(moment().valueOf() - starttime).format("hh:mm:ss");
+				});
+			document.getElementById("filename").innerHTML = runningjobName;
+			document.getElementById("jobid").innerHTML = jobId;
+
+			setInterval(function () {
+				endtime = starttime + elapsedtime + (averageslicetime * (totalslices - currentslice));
+				const vartimeelapsed_time = moment.duration(moment().valueOf() - starttime);
+				document.getElementById("vartimeelapsed").innerHTML = vartimeelapsed_time.days() + 'd ' + vartimeelapsed_time.hours() + 'h ' + vartimeelapsed_time.minutes() + 'm ' + vartimeelapsed_time.seconds() + 's';
+
+				// safeguard for job completion
+				if (typeof Cookies.get('laststartedjob') !== 'undefined') {
+					$.getJSON('/services/printJobs/get/' + Cookies.get('laststartedjob'))
+						.done(function (data) {
+							if (data.status == "Completed") {
+								window.location.href = ("error.html?type=success&errorname=Print Complete!&errordetails=The print <b>" + data.jobName + "</b> has completed, taking " + moment.utc(data.elapsedTime).format("HH:mm:ss") + " altogether.&errordetails2=Please remove the print from the platform and store any uncured resin for your next print.");
+							}
+						});
+				}
+
+				if (currentslice == 0 && jobId != "") {
+					initialsliceurl = "../services/printJobs/currentSliceImage/" + jobId;
+					document.getElementById('canvas').src = currentSliceImage64;
+				}
+
+				if (currentslice > 0) {
+					if (currentslice < totalslices) {
+						const vartimeremaining_time = moment.duration(endtime - moment().valueOf());
+						document.getElementById("vartimeremaining").innerHTML = vartimeremaining_time.days() + 'd ' + vartimeremaining_time.hours() + 'h ' + vartimeremaining_time.minutes() + 'm ' + vartimeremaining_time.seconds() + 's';
+
+						const total_time = moment.duration(endtime - starttime);
+						document.getElementById("totaltimes").innerHTML = total_time.days() + 'd ' + total_time.hours() + 'h ' + total_time.minutes() + 'm ' + total_time.seconds() + 's';
+						initialsliceurl = "../services/printJobs/currentSliceImage/" + jobId;
+						document.getElementById('canvas').src = currentSliceImage64;
+						var v = document.getElementById("jobProgress");
+						v.value = parseInt((currentslice / totalslices) * 100);
+					}
+					else {
+						// double check sliceHeight. If it's a crazy value, do not do the thing with raising the bed. We don't want a Z collision.
+						if (sliceHeight <= 0.2) {
+							var zMoveDist = maxHeight - (sliceHeight * totalslices) - 20;// magic number of 20mm for safety's sake. 
+							if (zMoveDist > 0) {
+								$.getJSON('../services/printers/moveZ/' + printerName + '/' + zMoveDist);
+							}
+						}
+						window.location.href = ("error.html?type=success&errorname=Print Complete!&errordetails=The print <b>" + runningjobName + "</b> [Job ID: " + jobId + "] has completed, taking " + total_time.days() + 'd ' + total_time.hours() + 'h ' + total_time.minutes() + 'm ' + total_time.seconds() + 's' + " altogether.&errordetails2=Please remove the print from the platform and store any uncured resin for your next print.");
+					}
+				}
+
+				if ((parseFloat((currentslice / totalslices) * 100).toFixed(2) != "NaN") && (parseFloat((currentslice / totalslices) * 100).toFixed(2) != "Infinity")) {
+					document.getElementById("varcompletion").innerHTML = "Layer " + currentslice + " of " + totalslices + " (" + parseFloat((currentslice / totalslices) * 100).toFixed(2) + "%)";
+				}
+			}, 2500);
+		}
+
+		window.ondragstart = function () { return false; }
+
+		function pauseit() {
+			if (document.getElementById("pause").innerHTML == '<img src=\"images/pause.png\">') {
+				pause_query();
+			}
+			else if (document.getElementById("pause").innerHTML == '<img src=\"images/resume.png\">') {
+				resume_query();
+			}
+			else {
+				$('#cancellabel').show();
+				$('#pause').show();
+			}
+		}
+
+		function resume_query() {
+			$('#layover_2').show(0).delay(80).hide(0);
+			$('#pause').delay(150).hide(0);
+			$('#cancellabel').delay(150).hide(0);
+			$('#resume_question').delay(150).show(0);
+			$('#resume_decline').delay(150).show(0);
+			$('#resume_approve').delay(150).show(0);
+		}
+
+		function pause_query() {
+			$('#layover_3').show(0).delay(80).hide(0);
+			$('#pause').delay(150).hide(0);
+			$('#cancellabel').delay(150).hide(0);
+			$('#pause_question').delay(150).show(0);
+			$('#pause_decline').delay(150).show(0);
+			$('#pause_approve').delay(150).show(0);
+		}
+
+		function decline() {
+			$('#layover_5').show(0).delay(80).hide(0);
+			$('#cancel_decline').delay(150).hide(0);
+			$('#cancel_approve').delay(150).hide(0);
+			$('#cancel_question').delay(150).hide(0);
+			$('#pause_decline').delay(150).hide(0);
+			$('#pause_approve').delay(150).hide(0);
+			$('#pause_question').delay(150).hide(0);
+			$('#resume_decline').delay(150).hide(0);
+			$('#resume_approve').delay(150).hide(0);
+			$('#resume_question').delay(150).hide(0);
+			$('#cancellabel').delay(150).show(0);
+			$('#pause').delay(150).show(0);
+			clearTimeout(canceltimer);
+		}
+
+		function do_Pause() {
+			$('#layover_4').show(0).delay(80).hide(0);
+			$('#pause_question').delay(150).hide(0);
+			$('#pause_decline').delay(150).hide(0);
+			$('#pause_approve').delay(150).hide(0);
+			$.getJSON("../services/printJobs/togglePause/" + jobId);
+			document.getElementById("pauseglyph").innerHTML = '<span class="glyphicon glyphicon-pause"></span>';
+			$('#pausing').delay(150).show(0);
+			setTimeout(function () {
+				$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 Punlock.g');
+				$('#pause').show();
+				$('#cancellabel').show();
+				$('#pausing').hide();
+			}, 25000);
+			document.getElementById("pause").innerHTML = '<img src=\"images/resume.png\">';
+		}
+
+		function DoEndstop() {
+			$('#layover_4').show(0).delay(80).hide(0);
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M408 S3', function (result) {
+				var tem = result["message"];
+				var messtripped = tem.substr(0, tem.length - 3); // to strip off end chars "msgBox.mode\":-1}\n\nok\n"
+				var messObj = JSON.parse(messtripped);
+				if (messObj.endstops === 0 || messObj.endstops === 4) {
+					$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 Plock.g');
+					$.getJSON('../services/printers/executeGCode/' + printerName + '/M400');
+					$('#cancellabel').hide();
+					doResume();
+				}
+				else {
+					$('#warning').html("Please close the door and try again");
+					$('#warning').show();
+					setTimeout(function () {
+						$('#warning').hide();
+					}, 5000);
+				}
+			});
+		}
+
+		function Dodoorcheck() {
+			if (document.getElementById("pause").innerHTML == '<img src=\"images/resume.png\">') {
+				$.getJSON('../services/printers/executeGCode/' + printerName + '/M408 S3', function (result) {
+					var tem = result["message"];
+					var messtripped = tem.substr(0, tem.length - 3); // to strip off end chars "msgBox.mode\":-1}\n\nok\n"
+					var messObj = JSON.parse(messtripped);
+					if (messObj.endstops === 0 || messObj.endstops === 4) {
+						$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 Plock.g');
+						cancel();
+					}
+					else {
+						$('#warning').html("Please close the door and try again");
+						$('#warning').show();
+						setTimeout(function () {
+							$('#warning').hide();
+						}, 5000);
+					}
+				});
+			}
+			else {
+				cancel();
+			}
+		}
+
+		function doResume() {
+			$('#resume_question').hide();
+			$('#resume_approve').hide();
+			$('#resume_decline').hide();
+			$('#resuming').show();
+			setTimeout(function () {
+				$('#pause').show();
+				$('#cancellabel').show();
+				$('#resuming').hide();
+			}, 5000);
+			$.getJSON("../services/printJobs/togglePause/" + jobId);
+			document.getElementById("pause").innerHTML = '<img src=\"images/pause.png\">';
+			document.getElementById("pauseglyph").innerHTML = '<span class="glyphicon glyphicon-play"></span>';
+			setTimeout(function () {
+				document.getElementById("pauseglyph").innerHTML = "";
+			}, 2500);
+		}
+
+		function cancelshow() {
+			$('#layover_1').show(0).delay(80).hide(0);
+			$('#cancellabel').delay(150).hide(0);
+			$('#pause').delay(150).hide(0);
+			$('#cancel_question').delay(150).show(0);
+			$('#cancel_decline').delay(150).show(0);
+			$('#cancel_approve').delay(150).show(0);
+			canceltimer = setTimeout(function () {
+				$('#warning').hide();
+				$('#cancellabel').show();
+				$('#pause').show();
+				$('#cancel_question').hide();
+				$('#cancel_decline').hide();
+				$('#cancel_approve').hide();
+			}, 10000);
+		}
+
+		var canceltimer;
+
+		function cancel() {
+			$('#layover_4').show(0).delay(80).hide(0);
+			$('#cancel_question').delay(150).hide(0);
+			$('#cancel_decline').delay(150).hide(0);
+			$('#cancel_approve').delay(150).hide(0);
+			clearTimeout(canceltimer);
+			$('#cancelling').delay(150).show(0);
+			$.getJSON("../services/printJobs/stopJob/" + jobId);
+			$.getJSON('../services/printers/executeGCode/' + printerName + '/M98 Pcancel.g')
+				.done(function (data) {
+					location.href = "index.html";
+				});
+		}
+
+	</script>
+	<div class="screen">
+		<div class="main">
+			<img src="images/printdialogue.png" usemap="printdialogue" class="uilayer">
+			<map name="printdialogue" style="z-index: 100;"></map>
+			<img name="wifi" id="wifi" class="wifi" src="images/pixel.png">
+			<img name="printerstatus" id="printerstatus" class="printerstatus" src="images/pixel.png">
+			<img name="interlockcheck" id="interlockcheck" class="interlockcheck" src="images/pixel.png">
+			<img name="doorcheck" id="doorcheck" class="doorcheck" src="images/pixel.png">
+			<div name="cancellabel" class="cancellabel" id="cancellabel" onClick="cancelshow();"><img
+					src="images/cancel.png"></div>
+			<div name="printwarn" id="warn" class="warn">
+				<div id="warning" role="alert" class="alert alert-danger collapse"></div>
+			</div>
+			<img name="cancel_question" id="cancel_question" class="cancel_question collapse" src="images/cancel_q.png">
+			<img name="cancel_approve" id="cancel_approve" class="cancel_approve collapse" src="images/cancel_a.png"
+				onclick="Dodoorcheck();">
+			<img name="cancel_decline" id="cancel_decline" class="cancel_decline collapse" src="images/cancel_d.png"
+				onclick="decline();">
+			<img name="cancelling" id="cancelling" class="cancelling collapse" src="images/cancelling.png">
+
+			<img name="pause_question" id="pause_question" class="pause_question collapse" src="images/pause_q.png">
+			<img name="pause_approve" id="pause_approve" class="pause_approve collapse" src="images/cancel_a.png"
+				onclick="do_Pause();">
+			<img name="pause_decline" id="pause_decline" class="pause_decline collapse" src="images/cancel_d.png"
+				onclick="decline();">
+			<img name="pausing" id="pausing" class="pausing collapse" src="images/pausing.png">
+
+			<img name="resume_question" id="resume_question" class="resume_question collapse" src="images/resume_q.png">
+			<img name="resume_approve" id="resume_approve" class="resume_approve collapse" src="images/cancel_a.png"
+				onclick="DoEndstop();">
+			<img name="resume_decline" id="resume_decline" class="resume_decline collapse" src="images/cancel_d.png"
+				onclick="decline();">
+			<img name="resuming" id="resuming" class="resuming collapse" src="images/resuming.png">
+			<img name="layover_1" id="layover_1" class="layover_1 collapse" src="images/layovers/c.png" />
+			<img name="layover_2" id="layover_2" class="layover_2 collapse" src="images/layovers/r.png" />
+			<img name="layover_3" id="layover_3" class="layover_3 collapse" src="images/layovers/p.png" />
+			<img name="layover_4" id="layover_4" class="layover_4 collapse" src="images/layovers/c_a.png" />
+			<img name="layover_5" id="layover_5" class="layover_5 collapse" src="images/layovers/c_d.png" />
+
+			<div name="pause" class="pause" id="pause" onClick="pauseit();"><img src="images/pause.png"></div>
+			<div name="info" id="info" class="info">
+				<div name="filename" id="filename" class="filename">
+					<script>document.write(runningJobName);</script>
+				</div>
+				<div name="completion" id="completion" class="completion"> Completion:<br><span id="varcompletion"
+						style="align-items: flex-end"><i>Calculating...</i></span></div>
+				<div name="timeelapsed" id="timeelapsed" class="timeelapsed"> Time Elapsed:<br><span id="vartimeelapsed"
+						style="align-items: flex-end"><i>Calculating...</i></span></div>
+				<div name="timeremaining" id="timeremaining" class="timeremaining"> Time Remaining:<br><span
+						id="vartimeremaining" style="align-items: flex-end"><i>Calculating...</i></span></div>
+				<div name="totaltime" id="totaltime" class="totaltime"> Total Time:<br><span id="totaltimes"
+						style="align-items: flex-end"><i>Calculating...</i></span></div>
+			</div>
+			<div name="jobid" id="jobid" class="jobid">
+			</div>
+
+			<div class="printlayer" id="printlayer">
+				<canvas id="canvas" class="canvas" width="350" height="206"></canvas>
+			</div>
+			<img name="windowframe" id="windowframe" class="windowframe">
+			<div name="pauseglyph" class="pauseglyph" id="pauseglyph"></div>
+			<div name="progressbar" class="progressbar" id="progressbar">
+				<progress id="jobProgress" name="jobProgress" class="jobProgress" value="" max="100"></progress>
+			</div>
+			<div name="webinfo" id="webinfo" class="webinfo">
+				<div name="IP" id="IP" class="IP"><span id="IPaddress" class="details"></span></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

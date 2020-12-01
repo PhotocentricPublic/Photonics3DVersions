@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>wifisetup</title>
+	<style>
+		* {
+			cursor: none;
+		}
+
+		::-webkit-scrollbar {
+			width: 0px;
+		}
+
+		::-webkit-scrollbar-track-piece {
+			background-color: transparent;
+		}
+
+		.layover_1 {
+			position: absolute;
+			top: 365px;
+			left: 42px;
+			opacity: 50%;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.layover_2 {
+			position: absolute;
+			top: 363px;
+			left: 702px;
+			opacity: 50%;
+			z-index: 5;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+
+		.nettitle {
+			font-size: 20px;
+			padding-bottom: 5px;
+		}
+
+		.hostname {
+			font-weight: bold;
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.SSID {
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.IP {
+			font-weight: bold;
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.details {
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.MAC {
+			font-weight: bold;
+			font-size: 15px;
+			padding-bottom: 2.5px;
+			padding-left: 5px;
+		}
+
+		.visiblelabel {
+			position: absolute;
+			top: 65px;
+			left: 460px;
+			width: 320px;
+			color: white;
+			text-align: left;
+			padding-left: 20px;
+			padding-top: 5px;
+			font-size: 20px;
+			z-index: 2;
+		}
+
+		.wifiselect {
+			position: absolute;
+			top: 121px;
+			left: 485px;
+			width: 270px;
+			height: 109px;
+			background-color: transparent;
+			color: white;
+			border: none;
+			line-height: 50px;
+			font-size: 20px;
+			overflow: hidden;
+		}
+
+		.home {
+			position: absolute;
+			top: 360px;
+			left: 25px;
+			height: 90px;
+			width: 80px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 3;
+		}
+
+		.connect {
+			position: absolute;
+			top: 365px;
+			left: 690px;
+			height: 90px;
+			width: 90px;
+			user-drag: none;
+			user-select: none;
+			-moz-user-select: none;
+			-webkit-user-drag: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+			z-index: 3;
+		}
+	</style>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="../jquery/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Latest v1 Angular -->
+	<script src="../angular/js/angular.min.js"></script>
+
+	<script src="js/moment.min.js"></script>
+
+	<script src="js/printflow.js"></script>
+	<script src="js/printerconfig.js"></script>
+
+	<script src="js/js.cookie.js"></script>
+
+	<link href="css/printflow.css" rel="stylesheet">
+</head>
+
+<body style="background-color: black;" onload="init();">
+	<script>
+		function init() {
+			startpage();
+			setInterval(updateNetInfo(), 10000);
+		}
+
+		function updateNetInfo() {
+
+			$.getJSON('/services/machine/getNetworkHostConfiguration')
+				.done(function (data) {
+
+					document.getElementById("hostvar").innerHTML = data.Hostname;
+					var MACs = "";
+					$.each(data.MACs, function (key, value) {
+						console.log(key + ", " + value);
+						MACs += key + ": " + value + "<BR/> ";
+					});
+					document.getElementById("MACaddress").innerHTML = MACs;
+					var IPs = "";
+					$.each(data.IPs, function (key, value) {
+						IPs += key + ": " + value + "<BR/> ";
+					});
+					document.getElementById("IPaddress").innerHTML = IPs;
+				})
+				.fail(function () {
+				});
+
+			var select = document.getElementById("wifiselect");
+			// length should be 0 but for some really odd reason some elements can be left. If so, we do it again.
+			while (select.options.length > 0) {
+				for (var i = 0; i < select.options.length; i++) {
+					select.options[i] = null;
+				}
+			}
+			$.getJSON('/services/machine/wirelessNetworks/list')
+				.done(function (data) {
+					console.log(data);
+					var i = 0;
+					$.each(data, function (key, val) {
+						console.log(i + ": " + key + " " + val);
+						option = document.createElement('option');
+						option.id = option.text = option.value = val.ssid;
+						option.style = "background: url(images/wifi-tiny.png) no-repeat; padding-top: 2px; padding-right: 10px;";
+						select.add(option);
+						i = i + 1;
+					});
+					$("#wifiselect").html($("#wifiselect option").sort(function (a, b) {
+						return a.text == b.text ? 0 : a.text.toLowerCase() < b.text.toLowerCase() ? -1 : 1
+					}))
+				});
+			$('#connect').show();
+		}
+
+		function setupWifi() {
+			setTimeout(function () {
+				location.href = "wifisetup.html?SSID=" + $("#wifiselect").val();
+			}, 150);
+			$('#layover_2').show(0).delay(80).hide(0);
+		}
+
+		function home_btn() {
+			setTimeout(function () {
+				location.href = "index.html";
+			}, 150);
+			$('#layover_1').show(0).delay(80).hide(0);
+		}
+	</script>
+
+	<div class="screen">
+		<div class="main">
+			<img src="images/wifisettings.png" usemap="wifisettings" class="uilayer"></img>
+			<div name="visiblelabel" class="visiblelabel" id="visiblelabel">AVAILABLE Wi-Fi NETWORKS<br>
+				<p align="right">
+					<font size="2">SELECT IF AVAILABLE</font>
+				</p>
+			</div>
+			<img name="wifi" id="wifi" class="wifi" src="images/pixel.png">
+			<img name="interlockcheck" id="interlockcheck" class="interlockcheck" src="images/pixel.png">
+			<img name="doorcheck" id="doorcheck" class="doorcheck" src="images/pixel.png">
+			<img name="printerstatus" id="printerstatus" class="printerstatus" src="images/pixel.png">
+			<img name="layover_1" id="layover_1" class="layover_1 collapse" src="images/layovers/pr_1.png" />
+			<img name="layover_2" id="layover_2" class="layover_2 collapse" src="images/layovers/connect.png" />
+			<div onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
+				<div name="info" id="info" class="info">
+					<div name="nettitle" id="nettitle" class="nettitle">NETWORK DETAILS</div>
+					<div name="hostname" id="hostname" class="hostname">Hostname:<br /><span id="hostvar"
+							class="hostname"></span>.local</div>
+					<div name="IP" id="IP" class="IP">IP address:<br /><span id="IPaddress" class="details"></span>
+					</div>
+					<div name="MAC" id="MAC" class="MAC">MAC Address:<br /><span id="MACaddress" class="details"></span>
+					</div>
+				</div>
+			</div>
+			<div name="home" class="home" id="home" onClick="home_btn();"><img src="images/menumainbuttonANIM.png">
+			</div>
+			<div name="connect" class="connect collapse" id="connect" onClick="setupWifi();"><img
+					src="images/connect.png" draggable="false"></div>
+			<select name="wifiselect" class="wifiselect" id="wifiselect" size="9">
+					<option value="" disabled selected hidden>Select network if available</option>
+				</select>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -153,7 +153,7 @@
 			left: 500px;
 			width:200px;
 			height: 210px;
-			z-index: 2;
+			z-index: -2;
 		}
 
 		.deleteallcheck {
@@ -162,7 +162,7 @@
 			left: 500px;
 			width: 200px;
 			height: 210px;
-			z-index: 2;
+			z-index: -2;
 		}
 		.show{
 			position: absolute;
@@ -416,6 +416,7 @@
 					 var length=xx[0].length;
 
 					 if (length>0){
+						$('#deleteallcheck').css('z-index', 50);
 						document.getElementById("deleteallquery").innerHTML = "Are you sure you want to delete all the print files?<br><br><br>";
 						$('#deleteallwarn').fadeIn();
 						$('#deletecheck').css('z-index', -50);
@@ -522,6 +523,15 @@
 							.fail(function () {
 							});
 					}
+					
+					function pressNo() {
+						$('#deletewarn').hide();
+						$('#deleteallwarn').hide()
+						$('#deletecontainer').show();
+						$('#deleteallcontainer').show();
+						$('#deletecheck').css('z-index', -2);
+						$('#deleteallcheck').css('z-index', -2);
+					}
 
 		</script>
         <div class="screen">
@@ -544,10 +554,10 @@
 				<div class="deleteallcontainer" id="deleteallcontainer"><img name="deleteall" id="deleteall" class="deleteall" src="images/delete_all.png" onclick="dodeleteallcheck();"></div>
 				<div name="printallwarn" id="allwarn" class="allwarn"><div id="allwarning" role="alert" class="alert alert-danger collapse" ></div></div>
 				<div name="deleteallcheck" id="deleteallcheck" class="deleteallcheck">
-					<div id="deleteallwarn" role="alert" class="alert alert-warning collapse" >
+					<div id="deleteallwarn" role="alert" class="alert alert-warning collapse">
 						<div id="deleteallquery"></div>
 							<button type="button" class="btn btn-danger btn-block btn-lg" onclick="deleteAllfiles();">Yes</button>
-							<button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#deleteallwarn').hide(), $('#deleteallcontainer').fadeIn();">No</button>
+							<button type="button" class="btn btn-default btn-block btn-lg" onclick="pressNo();">No</button>
 					</div>
 				</div>
 
@@ -557,7 +567,7 @@
 					<div id="deletewarn" role="alert" class="alert alert-warning collapse" >
 						<div id="deletequery"></div>
 							<button type="button" class="btn btn-danger btn-block btn-lg" onclick="deleteONEfile();">Yes</button>
-							<button type="button" class="btn btn-default btn-block btn-lg" onclick="$('#deletewarn').hide(), $('#deletecontainer').fadeIn(), $('#deleteallcontainer').fadeIn();">No</button>
+							<button type="button" class="btn btn-default btn-block btn-lg" onclick="pressNo();">No</button>
 					</div>
 				</div>
 

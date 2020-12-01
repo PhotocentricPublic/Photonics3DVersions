@@ -243,7 +243,7 @@ function printredirect() {
                         if ((typeof Cookies.get('lastfailedjob') === 'undefined') || (Cookies.get('lastfailedjob') != jobId)) {
                                 Cookies.set('lastfailedjob', jobId);
                                 setTimeout(function () {
-                                        window.location.href = ("error.html?errorname=Print Failed&errordetails=The print of " + runningjobName + " [Job ID: " + jobId + "] has unexpectedly failed.&errordetails2=Please retry the print, and if the issue persists, contact Technical Support via <b>www.photocentricgroup.com/support/</b>");
+                                        window.location.href = ("error.html?errorname=Print Failed&errordetails=The print " + runningjobName + " [Job ID: " + jobId + "] has unexpectedly failed.&errordetails2=Please retry the print, and if the issue persists, contact Technical Support via <b>www.photocentricgroup.com/support/</b>");
                                 }, 100);
                         }
                 }
@@ -256,7 +256,7 @@ function printredirect() {
                         if ((typeof Cookies.get('lastcancelledjob') === 'undefined') || (Cookies.get('lastcancelledjob') != jobId)) {
                                 Cookies.set('lastcancelledjob', jobId);
                                 setTimeout(function () {
-                                        window.location.href = ("error.html?type=info&errorname=Print Cancelled&errordetails=The print of <b>" + runningjobName + "</b> was cancelled. Please wait for platform to home and press OK.");
+                                        window.location.href = ("error.html?type=info&errorname=Print Cancelled&errordetails=The print <b>" + runningjobName + "</b> was cancelled. Please wait for platform to home then press OK.");
                                 }, 100);
                         }
                 }
